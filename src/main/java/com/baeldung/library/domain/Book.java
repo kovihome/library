@@ -1,14 +1,11 @@
 package com.baeldung.library.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Builder
 @NoArgsConstructor
@@ -26,5 +23,10 @@ public class Book {
 
     @NotNull
     private String title;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @NotEmpty
+    @ToString.Exclude
+    private List<Author> authors;
 
 }

@@ -1,18 +1,12 @@
 package com.baeldung.library.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Builder
 @NoArgsConstructor
@@ -28,7 +22,15 @@ public class Author {
     @NotNull
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @NotNull
+    private LocalDate birth_date;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private Country origin_country;
+
+    @ManyToMany(mappedBy = "authors")
+    @ToString.Exclude
     private List<Book> books;
 
 }
